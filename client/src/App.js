@@ -10,7 +10,7 @@ function App() {
   return (
     <>
     <BrowserRouter>
-        <Header/> 
+       <Header/> 
         <main>
          <Routes>
          <Route exact path='/' element={<LandingPage/>}/>
@@ -18,8 +18,8 @@ function App() {
          <Route path='*' element={<Navigate to='/myideas'/>}/>
         </Routes>
         </main>
+        <Footer/>
      </BrowserRouter>
-     <Footer/>
      </>
   );
 }

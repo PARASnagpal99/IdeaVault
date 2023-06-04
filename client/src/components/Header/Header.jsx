@@ -31,9 +31,7 @@ const Header = () => {
             </Nav>
           <Nav>
             <Nav.Link href="/myideas">
-              <Link to='/myideas'>
                  Ideas
-              </Link> 
             </Nav.Link>
             <NavDropdown title="Paras" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>

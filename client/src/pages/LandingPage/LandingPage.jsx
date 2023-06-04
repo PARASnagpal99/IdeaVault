@@ -18,7 +18,7 @@ const LandingPage = () => {
                           </a>
                           <a href='/register'>
                              <Button size='lg' className='landingbutton' variant='outline-primary'>SignUp</Button>
-                          </a>
+                           </a>
                      </div>
                 </div>
             </Row>
