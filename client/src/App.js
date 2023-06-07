@@ -5,6 +5,8 @@ import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer';
 import LandingPage from './pages/LandingPage/LandingPage';
 import MyIdeas from './pages/MyIdeas/MyIdeas';
+import LoginPage from './pages/LoginPage/LoginPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <main>
          <Routes>
          <Route exact path='/' element={<LandingPage/>}/>
+         <Route exact path='/login' element={<LoginPage/>}/>
+         <Route exact path='/Register' element={<RegisterPage/>}/>
          <Route exact path='/myideas' element={<MyIdeas/>}/>
          <Route path='*' element={<Navigate to='/myideas'/>}/>
         </Routes>
