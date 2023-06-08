@@ -12,7 +12,7 @@ const MyIdeas = () => {
   const fetchIdeas = async() =>{
        const {data} = await axios.get("api/ideas")
        setIdeas(data);
-       console.log(data);
+       //console.log(data);
   }
 
   useEffect(() =>{

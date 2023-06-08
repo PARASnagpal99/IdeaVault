@@ -28,7 +28,7 @@ const LoginPage = () => {
     }
     setLoading(true);
     const {data} = await axios.post('/api/users/login',{email,password},config);
-    console.log(data);
+   // console.log(data);
     localStorage.setItem('userInfo',JSON.stringify(data));
     setLoading(false);
   }catch(err){
@@ -36,10 +36,7 @@ const LoginPage = () => {
     setLoading(false);
   }
 
-
-
-
-  console.log(email,password)
+  //console.log(email,password)
  }
 
   return (

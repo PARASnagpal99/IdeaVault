@@ -2,7 +2,6 @@ import React , {useState}from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Body from '../../components/Body/Body';
-import {Row , Col} from 'react-bootstrap'
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
 import axios from 'axios';
@@ -19,6 +18,33 @@ const RegisterPage = () => {
   const [error,setError] = useState(false);
   const [loading,setLoading] = useState(false);
   const [picMessage, setPicMessage] = useState(null);
+  
+  const postDetails = (pics) => {
+        if(!pics){
+          return setPicMessage("Please select an image");
+        }
+        setPicMessage(null);
+        if(pics.type === 'image/jpeg' || pics.type === 'image/png'){
+             const data = new FormData() ;
+             data.append('file',pics);
+             data.append('upload_preset','IdeaVault');
+             data.append('cloud_name', 'ideavault')
+             fetch('https://api.cloudinary.com/v1_1/ideavault/image/upload',{
+              method : 'post',
+              body : data 
+             })
+             .then(res => res.json())
+             .then((data) =>{
+             // console.log(data);
+              setPicture(data.url.toString());
+             })
+             .catch((err) => {
+              console.log(err);
+             }) 
+        }else{
+          setPicMessage("Please select an image");
+        }
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -34,7 +60,6 @@ const RegisterPage = () => {
         }
         setLoading(true);
         const {data} = await axios.post('/api/users',{name , picture , email , password},config);
-        console.log(data);
         localStorage.setItem('userInfo',JSON.stringify(data));
         setLoading(false);
       }catch(err){
@@ -43,9 +68,7 @@ const RegisterPage = () => {
       }
     }
 
-    
-
-    console.log(email);
+   // console.log(email);
   }
 
    
@@ -76,10 +99,14 @@ const RegisterPage = () => {
    <Form.Label>Confirm Password</Form.Label>
    <Form.Control type="password" placeholder="Password"  value={confirmpassword}  onChange={(e) => setConfirmPassword(e.target.value)}/>
  </Form.Group>
+
+ {
+  picMessage && <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
+ }
   
  <Form.Group controlId="formFile" className="mb-3">
         <Form.Label>Profile Picture</Form.Label>
-        <Form.Control type="file" />
+        <Form.Control type="file" onChange={(e) => postDetails(e.target.files[0])} />
   </Form.Group>
 
    <Button variant="primary" type="submit">
