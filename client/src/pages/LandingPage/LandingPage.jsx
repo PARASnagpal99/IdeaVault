@@ -1,16 +1,13 @@
-import React , {useEffect} from 'react'
-import { useNavigate } from 'react-router-dom';
+import React  from 'react'
+// import { useNavigate } from 'react-router-dom';
 import { Container , Row , Button } from 'react-bootstrap'
 import './LandingPage.css';
+import { useSelector } from 'react-redux';
 
-const LandingPage = () => {
-   const navigate = useNavigate();
-   useEffect(() =>{
-      const userInfo = localStorage.getItem('userInfo');  
-      if(userInfo){
-        navigate('/myIdeas')
-      }
-     },[navigate])
+const LandingPage = ({Navigate}) => {
+   const userLogin = useSelector(state => state.userLogin);
+   const {userInfo} = userLogin;
+   console.log(userInfo)
   return (
     <div className='main'>
          <Container>

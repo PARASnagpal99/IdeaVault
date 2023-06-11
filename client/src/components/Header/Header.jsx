@@ -1,15 +1,20 @@
 import React from 'react'
-// import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Link,useNavigate} from 'react-router-dom'
-
+import { logout } from '../../actions/userActions';
+import { useDispatch} from 'react-redux';
 
 const Header = () => {
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const logoutHandler =()=>{
+        dispatch(logout());
+        Navigate('/');
+  }
     return (
     <Navbar bg="dark" expand="lg" variant='dark'>
       <Container fluid>
@@ -37,10 +42,7 @@ const Header = () => {
             <NavDropdown title="Paras" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
               <NavDropdown.Item
-              onClick={()=>{
-                localStorage.removeItem('userInfo');
-                Navigate('/');
-              }}
+              onClick={logoutHandler}
               >
                 Logout
               </NavDropdown.Item>

@@ -1,10 +1,12 @@
-import React , {useState}from 'react'
+import React , {useEffect, useState}from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Body from '../../components/Body/Body';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
-import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import { register } from '../../actions/userActions';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -15,10 +17,19 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
-  const [error,setError] = useState(false);
-  const [loading,setLoading] = useState(false);
   const [picMessage, setPicMessage] = useState(null);
   
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister);
+  const {userInfo,loading,error} = userRegister ;
+  const navigate = useNavigate();
+
+  useEffect(() =>{
+       if(userInfo){
+        navigate('/myideas');
+       }
+  },[navigate,userInfo]);
+
   const postDetails = (pics) => {
         if(!pics){
           return setPicMessage("Please select an image");
@@ -49,25 +60,10 @@ const RegisterPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if(password !== confirmpassword){
-      setMessage('Passwords do not match');
+      setMessage("Passwords do not match");
     }else{
-       setMessage(null);
-       try{
-        const config = {
-          headers : {
-            "Content-Type" : "application/json" ,
-          }
-        }
-        setLoading(true);
-        const {data} = await axios.post('/api/users',{name , picture , email , password},config);
-        localStorage.setItem('userInfo',JSON.stringify(data));
-        setLoading(false);
-      }catch(err){
-        setError(err.response.data.message);
-        setLoading(false);
-      }
+      dispatch(register(name,picture,email,password));
     }
-
    // console.log(email);
   }
 
