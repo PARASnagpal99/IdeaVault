@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const LandingPage = ({Navigate}) => {
    const userLogin = useSelector(state => state.userLogin);
    const {userInfo} = userLogin;
-   console.log(userInfo)
+   // console.log(userInfo)
   return (
     <div className='main'>
          <Container>
