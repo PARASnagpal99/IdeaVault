@@ -9,11 +9,13 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
+  userRegister : { userInfo: userInfoFromStorage },
+  ideaList : {ideas : []} 
 }
 
 const store = configureStore({
     reducer: rootReducer,
-    preloadedState: initialState,
+    preloadedState : initialState ,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger).concat(thunk),
   })
   

@@ -8,7 +8,7 @@ import {Link,useNavigate} from 'react-router-dom'
 import { logout } from '../../actions/userActions';
 import { useDispatch} from 'react-redux';
 
-const Header = () => {
+const Header = ({setSearch}) => {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const logoutHandler =()=>{
@@ -32,11 +32,12 @@ const Header = () => {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={(e) => setSearch(e.target.value)}
             />
             </Form>
             </Nav>
           <Nav>
-            <Nav.Link href="/myideas">
+            <Nav.Link  href="/myideas">
                  Ideas
             </Nav.Link>
             <NavDropdown title="Paras" id="navbarScrollingDropdown">
@@ -47,11 +48,7 @@ const Header = () => {
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
-            {/* <Nav.Link href="#" disabled>
-              Link
-            </Nav.Link> */}
          </Nav>
-            {/* <Button variant="outline-success">Search</Button> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

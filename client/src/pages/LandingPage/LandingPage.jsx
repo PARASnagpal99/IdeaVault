@@ -1,12 +1,18 @@
-import React  from 'react'
-// import { useNavigate } from 'react-router-dom';
+import React, { useEffect }  from 'react'
 import { Container , Row , Button } from 'react-bootstrap'
 import './LandingPage.css';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-const LandingPage = ({Navigate}) => {
+const LandingPage = () => {
    const userLogin = useSelector(state => state.userLogin);
+   const Navigate = useNavigate();
    const {userInfo} = userLogin;
+   useEffect(()=>{
+      if(userInfo){
+         Navigate('/myideas');
+      }
+   },[userInfo])
    // console.log(userInfo)
   return (
     <div className='main'>

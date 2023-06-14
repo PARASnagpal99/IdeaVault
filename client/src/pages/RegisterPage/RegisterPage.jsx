@@ -7,6 +7,8 @@ import ErrorMessage from '../../components/ErrorMessage';
 import {useDispatch, useSelector} from 'react-redux';
 import { register } from '../../actions/userActions';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Row,Col } from 'react-bootstrap';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -108,6 +110,11 @@ const RegisterPage = () => {
    <Button variant="primary" type="submit">
      Submit
    </Button>
+   <Row className="py-3">
+   <Col>
+    Already Registered ? <Link to="/login">Click Here to Login</Link>
+   </Col>
+   </Row>
  </Form>
  </Body>
   )

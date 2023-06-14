@@ -2,7 +2,9 @@ import React from 'react'
 import { Badge,Button } from 'react-bootstrap'
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import { useDispatch} from 'react-redux';
 import Card from 'react-bootstrap/Card';
+import { deleteIdea } from '../actions/ideasActions';
 
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
@@ -21,9 +23,11 @@ function CustomToggle({ children, eventKey }) {
 }
 
 const Idea = (idea) => {
+  const dispatch = useDispatch();
+
   const deleteHandler =(id)=>{
     if(window.confirm('Are you sure ?')){
-            
+        dispatch(deleteIdea(id));
     }
 }
   idea = idea.idea
@@ -47,7 +51,7 @@ const Idea = (idea) => {
                 
                   </span>
 ̣̣             <div>
-                   <Button href={`/idea/${idea._id}`}>Edit</Button>
+                   <Button href={`/ideas/${idea._id}`}>Edit</Button>
                    <Button variant="danger" className="mx-2" onClick={()=> deleteHandler(idea._id)}>
                       Delete
                   </Button>
@@ -64,7 +68,7 @@ const Idea = (idea) => {
          <blockquote className="blockquote mb-0">
               <p>{idea.content}</p>
            <footer className="blockquote-footer">
-             created on - date 
+             created on - {idea.createdAt.substring(0, 10)}
             </footer>
          </blockquote>
        </Card.Body>

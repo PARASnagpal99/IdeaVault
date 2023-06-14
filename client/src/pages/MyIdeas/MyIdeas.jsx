@@ -1,33 +1,56 @@
-import React, { useEffect , useState } from 'react'
-import axios from 'axios';
+import React, { useEffect  } from 'react'
 import Body from '../../components/Body/Body'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import { Button } from 'react-bootstrap'
-// import ideas from '../../MockData/Ideas'
+import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
 import Idea from '../../components/Idea';
+import { useDispatch,useSelector } from 'react-redux';
+import { listIdeas } from '../../actions/ideasActions';
 
-const MyIdeas = () => {
-  const [ideas,setIdeas] = useState([]);
+const MyIdeas = ({search}) => {
 
-  const fetchIdeas = async() =>{
-       const {data} = await axios.get("api/ideas")
-       setIdeas(data);
-       //console.log(data);
-  }
+  const dispatch = useDispatch() ;
+  const navigate = useNavigate();
+
+  const ideaList = useSelector(state => state.ideaList);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const { loading , error , ideas } = ideaList ;
+
+  const ideaCreate = useSelector((state) => state.ideaCreate);
+  const { success : successCreate } = ideaCreate;
+
+  const ideaUpdate = useSelector((state) => state.ideaUpdate);
+  const { success : successUpdate } = ideaUpdate;
+   
+  const ideaDelete = useSelector((state)=> state.ideaDelete);
+  const {success : successDelete , loading : loadingDelete , error : errorDelete} = ideaDelete;
 
   useEffect(() =>{
-     fetchIdeas();
-  },[])
+     dispatch(listIdeas())
+     if(!userInfo){
+      navigate('/')
+     }
+  },[dispatch,navigate,userInfo,successCreate,successUpdate,successDelete])
 
   return (
-    <Body title="Welcome back Paras">
+    <Body title={`Welcome back ${userInfo && userInfo.name}`}>
         <Link to='/createidea'>
            <Button style={{marginLeft : 10 , marginBottom : 6}} size='lg'>
             Create New Idea 
            </Button>
          </Link>
-        {
-              ideas.map((idea) => (
+         {errorDelete && <ErrorMessage variant='danger'>{errorDelete}</ErrorMessage>}
+         {loadingDelete && <Loading/>}
+         {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
+         {loading && <Loading/>}
+              {
+              ideas && ideas
+              .filter((idea)=>idea.title.toLowerCase().includes(search.toLowerCase()))
+              .map((idea) => (
                     <Idea key={idea._id} idea={idea}></Idea>
               ))
            }
