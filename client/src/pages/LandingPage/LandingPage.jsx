@@ -13,7 +13,7 @@ const LandingPage = () => {
          Navigate('/myideas');
       }
    },[userInfo])
-   // console.log(userInfo)
+   
   return (
     <div className='main'>
          <Container>

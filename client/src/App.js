@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import CreateIdea from './pages/CreateIdea/CreateIdea';
 import SingleIdea from './pages/SingleIdea/SingleIdea';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 function App() {
   const [search,setSearch] = useState('');
@@ -19,6 +20,7 @@ function App() {
         <main>
          <Routes>
          <Route exact path='/' element={<LandingPage />}/>
+         <Route exact path='/profile' element={<ProfilePage/>}/>
          <Route exact path='/login' element={<LoginPage/>}/>
          <Route exact path='/Register' element={<RegisterPage/>}/>
          <Route exact path='/myideas' element={<MyIdeas search={search}/>}/>

@@ -15,6 +15,7 @@ const Header = ({setSearch}) => {
         dispatch(logout());
         Navigate('/');
   }
+  const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
     return (
     <Navbar bg="dark" expand="lg" variant='dark'>
       <Container fluid>
@@ -36,19 +37,26 @@ const Header = ({setSearch}) => {
             />
             </Form>
             </Nav>
-          <Nav>
+          {userInfo ? <Nav>
             <Nav.Link  href="/myideas">
                  Ideas
             </Nav.Link>
-            <NavDropdown title="Paras" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+            <NavDropdown title={userInfo.name} id="navbarScrollingDropdown">
+              <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
               <NavDropdown.Item
               onClick={logoutHandler}
               >
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
-         </Nav>
+         </Nav> : 
+          <Nav>
+            {" "}
+            <Nav.Link  href="/login">
+                 Login
+            </Nav.Link>
+          </Nav>
+        }
         </Navbar.Collapse>
       </Container>
     </Navbar>
