@@ -16,7 +16,11 @@ in a easy and secure manner .
 * MongoDB 
 * React 
 * ReactBootstrap 
-* ReduxToolkit 
+* ReduxToolkit
+
+## Features to Add :
+* Reset Password with Email Verification
+* Pagination
 
 
 
