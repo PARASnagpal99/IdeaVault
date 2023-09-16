@@ -16,9 +16,9 @@ const  CreateIdea = () => {
   const dispatch = useDispatch();
 
   const ideaCreate = useSelector((state) => state.ideaCreate);
-  const { loading, error, idea } = ideaCreate;
+  const { loading, error } = ideaCreate;
 
-  console.log(idea);
+ // console.log(idea);
 
   const resetHandler = () => {
     setTitle("");

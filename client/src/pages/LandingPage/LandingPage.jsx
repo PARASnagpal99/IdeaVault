@@ -12,7 +12,7 @@ const LandingPage = () => {
       if(userInfo){
          Navigate('/myideas');
       }
-   },[userInfo])
+   },[Navigate,userInfo])
    
   return (
     <div className='main'>

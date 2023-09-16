@@ -48,7 +48,7 @@ const  SingleIdea = ()=> {
     };
 
     fetching();
-  }, [params.id, date]);
+  }, [userInfo,params.id, date]);
 
   const resetHandler = () => {
     setTitle("");

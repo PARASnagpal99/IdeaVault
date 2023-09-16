@@ -35,7 +35,6 @@ const MyIdeas = ({search}) => {
       navigate('/')
      }
   },[dispatch,navigate,userInfo,successCreate,successUpdate,successDelete])
-
   return (
     <Body title={`Welcome back ${userInfo && userInfo.name}`}>
         <Link to='/createidea'>
@@ -49,7 +48,7 @@ const MyIdeas = ({search}) => {
          {loading && <Loading/>}
               {
               ideas && ideas
-              .filter((idea)=>idea.title.toLowerCase().includes(search.toLowerCase()))
+              .filter((idea)=>idea.category.toLowerCase().includes(search.toLowerCase()))
               .map((idea) => (
                     <Idea key={idea._id} idea={idea}></Idea>
               ))
