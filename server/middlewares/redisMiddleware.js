@@ -10,12 +10,12 @@ const cacheMiddleware = (req, res, next) => {
       next();
     } else if (data) {
       // Cache hit, serve cached data
-      // console.log('Cache hit');
+       console.log('Cache hit');
       const cachedData = JSON.parse(data);
       res.json(cachedData);
     } else {
       // Cache miss, continue to the route handler
-     // console.log('Cache Miss')
+      console.log('Cache Miss')
       res.sendResponse = res.json;
       res.json = (data) => {
         redis.setex(cacheKey, 900, JSON.stringify(data)); // Set cache duration to 15 minutes

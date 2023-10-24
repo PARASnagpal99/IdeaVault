@@ -37,6 +37,9 @@ const MyIdeas = ({search}) => {
   },[dispatch,navigate,userInfo,successCreate,successUpdate,successDelete])
   return (
     <Body title={`Welcome back ${userInfo && userInfo.name}`}>
+      <div className="cache-message">
+       This page is being cached, and ideas may take up to 15 minutes to become visible.
+     </div>
         <Link to='/createidea'>
            <Button style={{marginLeft : 10 , marginBottom : 6}} size='lg'>
             Create New Idea 
