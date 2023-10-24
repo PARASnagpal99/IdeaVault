@@ -66,9 +66,9 @@ const  SingleIdea = ()=> {
   };
 
   return (
-    <Body title="Edit Note">
+    <Body title="Edit Idea">
       <Card>
-        <Card.Header>Edit your Note</Card.Header>
+        <Card.Header>Edit your Idea</Card.Header>
         <Card.Body>
           <Form onSubmit={updateHandler}>
            {loadingDelete && <Loading size={50} />}
@@ -97,7 +97,7 @@ const  SingleIdea = ()=> {
             </Form.Group>
             {content && (
               <Card>
-                <Card.Header>Note Preview</Card.Header>
+                <Card.Header>Idea Preview</Card.Header>
                 <Card.Body>
                   <ReactMarkdown>{content}</ReactMarkdown>
                 </Card.Body>

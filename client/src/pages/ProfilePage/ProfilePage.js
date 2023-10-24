@@ -40,6 +40,7 @@ const ProfilePage = () => {
   },[userInfo,Navigate])
   
 
+
   const submitHandler =(e)=>{
     e.preventDefault();
     if(password !== confirmpassword){
@@ -75,9 +76,39 @@ const ProfilePage = () => {
         setPicMessage("Please select an image");
       }
   }
+ 
+  const [cacheMessageVisible, setCacheMessageVisible] = useState(false);
+  useEffect(() => {
+    if (!userInfo) {
+      Navigate('/');
+    } else {
+      setName(userInfo.name);
+      setEmail(userInfo.email);
+      setPicture(userInfo.picture);
+
+      // Show the cache message
+      setCacheMessageVisible(true);
+
+      // Hide the cache message after 15 minutes (900,000 milliseconds)
+      const cacheMessageTimer = setTimeout(() => {
+        setCacheMessageVisible(false);
+      }, 900000);
+
+      // Clear the timer when the component unmounts to prevent memory leaks
+      return () => {
+        clearTimeout(cacheMessageTimer);
+      };
+    }
+  }, [userInfo, Navigate]);
+
 
   return (
     <Body title="Edit Page">
+    {cacheMessageVisible && (
+      <div className="cache-message">
+        This page is being cached, and your changes will become visible after 15 minutes.
+      </div>
+    )}
     {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
     {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
     {loading && <Loading />}

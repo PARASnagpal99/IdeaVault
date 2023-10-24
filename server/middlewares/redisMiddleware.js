@@ -1,7 +1,6 @@
 const Redis = require('ioredis');
 const redis = new Redis();
 
-// Middleware to cache responses in Redis for 10 minutes
 const cacheMiddleware = (req, res, next) => {
   const cacheKey = req.originalUrl;
 
@@ -11,13 +10,15 @@ const cacheMiddleware = (req, res, next) => {
       next();
     } else if (data) {
       // Cache hit, serve cached data
+      // console.log('Cache hit');
       const cachedData = JSON.parse(data);
       res.json(cachedData);
     } else {
       // Cache miss, continue to the route handler
+     // console.log('Cache Miss')
       res.sendResponse = res.json;
       res.json = (data) => {
-        redis.setex(cacheKey, 10, JSON.stringify(data)); // Cache for 10 seconds 
+        redis.setex(cacheKey, 900, JSON.stringify(data)); // Set cache duration to 15 minutes
         res.sendResponse(data);
       };
       next();
